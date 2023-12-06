@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h3 {
+    font-size: 35px;
+}
+
+.container {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, auto);
+    grid-template-areas:
+        "navbar"
+        "main"
+        "about"
+        "workex"
+        "projects"
+        "blog"
+        "education"
+        "footer";
+}
+
+.navbar {
+    grid-area: navbar;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 10px 20px;
+    overflow: hidden;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.topnav a {
+    margin-left: 1.2rem;
+    text-decoration: none;
+    color: #B1907F;
+}
+
+.topnav .icon{
+    display: none;
+}
+
+.main {
+    background-image: url('images/image2.jpg');
+    background-size: cover;
+    background-position: left;
+    color: white;
+    padding: 50px 0;
+    height: 90vh;
+    grid-area: main;
+}
+
+.main-text {
+    color: #B1907F;
+    padding: 60px;
+}
+
+.main-text h1 {
+    margin: 10px;
+    font-size: 5rem;
+}
+
+.main-text p {
+    margin-left: 10px;
+    font-size: 1.5rem;
+}
+
+#about {
+    grid-area: about;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: white;
+    background-color: #B1907F;
+    padding: 10px;
+    padding-left: 15px;
+}
+
+#about h3 {
+    margin-bottom: 10px;
+}
+
+#about img {
+    height: 250px;
+    object-fit: cover;
+    margin-right: 10px;
+
+}
+
+#about div {
+    vertical-align: top;
+}
+
+.about-part {
+    display: inline-block;
+    width: 40%;
+    margin: 25px;
+}
+
+#workex {
+    color: #B1907F;
+    margin-bottom: 15px;
+    grid-area: workex;
+    height: auto;
+    margin-left: 15px;
+}
+
+#workex h3 {
+    text-align: center;
+    margin: 10px;
+}
+
+.workex-item {
+    margin: 10px;
+    margin-left: 50px;
+    margin-right: 20px;
+    display: inline-block;
+    width: 45%;
+    justify-content: center;
+    margin: 16px;
+    text-align: center;
+}
+
+.project-item {
+    display: inline-block;
+    margin: 10px;
+    width: 31.5%;
+    background-color: #B1907F;
+    color: white;
+    text-align: center;
+    padding: 10px;
+
+}
+
+#projects h3 {
+    color: #B1907F;
+    text-align: center;
+    margin: 10px;
+}
+
+#projects {
+    grid-area: projects;
+}
+
+.project-item img {
+    height: 250px;
+    width: 70%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#blog {
+    padding-top: 10px;
+    padding-left: 20px;
+    margin-top: 20px;
+    background-color: #B1907F;
+    padding-bottom: 20px;
+    grid-area: blog;
+}
+
+#blog img {
+    height: 100px;
+    padding: 5px;
+}
+
+#blog h3 {
+    color: white;
+    text-align: center;
+}
+
+.blogitems {
+    width: 90%;
+    background-color: white;
+    margin-left: 30px!important;
+    margin: 10px;
+    color: #B1907F;
+}
+
+.blogitems-1 {
+    display: inline-block;
+    width: 20%;
+}
+
+.blogitems-2 {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    width: 60%;
+}
+
+#education {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    grid-area: education;
+}
+
+#education h3 {
+    text-align: center;
+    color: #B1907F;
+    margin-bottom: 15px;
+}
+
+.education-item {
+    display: inline-block;
+    width: 47%;
+    background-color: #B1907F;
+    color: white;
+    margin: 10px;
+    padding-left: 15px;
+    padding-top: 5px;
+    border-radius: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#footer {
+    background-color: #B1907F;
+    text-align: center;
+    color: white;
+    grid-area: footer;
+}
+
+#footer a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+#footer h3 {
+    padding: 15px;
+    margin: 20px;
+}
+
+.footer-links {
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+@media (max-width: 500px) {
+    * {
+        overflow: auto;
+    }
+
+    .main-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .main-text p {
+        font-size: 1.25rem;
+    }
+
+    #about {
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 0;
+        padding-left: 50px;
+    }
+
+    .workex-item{
+        margin-left: 50px;
+    }
+
+    #blog .blogitems{
+        margin-right: 30px;
+        margin-left: 10px;
+    }
+
+    #education .education-item{
+        margin-left: 50px;
+    }
+
+    #blog {
+        height: fit-content;
+    }
+
+    .topnav a:not(:first-child) {display: none;}
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+
+    .navbar-right .responsive {
+        position: relative;
+    }
+
+    .navbar-right .responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navbar-right .responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}

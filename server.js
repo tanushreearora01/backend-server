@@ -55,7 +55,7 @@ const server = http.createServer(async (req, res) => {
     serveStaticFile(res, req.url);
   } else if (req.url.startsWith('/images/')) {
     serveStaticFile(res, req.url);
-  } else if (req.url === PROPERTIES_URI) {
+  } else if (req.url.startsWith(PROPERTIES_URI)) {
     bodyParser.json()(req, res, async () => {
     
 

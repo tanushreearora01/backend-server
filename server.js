@@ -49,75 +49,49 @@ const server = http.createServer(async (req, res) => {
 
   res.setHeader('Content-Type', 'application/json');
 
-  try {
-    if (req.url === '/') { // home page
-      fs.readFile(path.join(__dirname, 'portfolio', 'index.html'), 'utf-8',
-          (err, content) => {
-              if (err) throw err;
-              res.writeHead(200, { 'Content-Type': 'text/html' });
-              res.end(content);
-          });
-  } else if (req.url === '/styles.css') {
-        fs.readFile(path.join(__dirname, 'portfolio', 'styles.css'),
-                    (err, content) => {
-                                    
-                                    if (err) throw err;
-                                    res.setHeader("Access-Control-Allow-Origin", "*")
-                                    res.writeHead(200, { 'Content-Type': 'text/css' });
-                                    res.end(content);
-                        }
-              );
-     } 
-
-
-    else if (req.url==PROPERTIES_URI)
-    {
-      bodyParser.json()(req, res, async () => {
+  if (req.url === '/' || req.url === '/index.html') {
+    serveStaticFile(res, 'index.html');
+  } else if (req.url.startsWith('/css/')) {
+    serveStaticFile(res, req.url);
+  } else if (req.url.startsWith('/images/')) {
+    serveStaticFile(res, req.url);
+  } else if (req.url === PROPERTIES_URI) {
+    bodyParser.json()(req, res, async () => {
     
 
-        const [, endpoint, api, param] = req.url.split("/");
-    
-        try {
-          switch (req.method) {
-            case "POST":
-              await handlePostRequest(req, res);
-              break;
-    
-            case "GET":
-              await handleGetRequest(req, res);
-              break;
-    
-            case "PUT":
-              await handlePutRequest(param, req, res);
-              break;
-    
-            case "DELETE":
-              await handleDeleteRequest(param, req, res);
-              break;
-    
-            default:
-              sendErrorResponse(res, 404, "Route Not Found!");
-          }
-        } catch (error) {
-          console.error("Error processing request:", error);
-          sendErrorResponse(res, 500, "Internal Server Error");
+      const [, endpoint, api, param] = req.url.split("/");
+  
+      try {
+        switch (req.method) {
+          case "POST":
+            await handlePostRequest(req, res);
+            break;
+  
+          case "GET":
+            await handleGetRequest(req, res);
+            break;
+  
+          case "PUT":
+            await handlePutRequest(param, req, res);
+            break;
+  
+          case "DELETE":
+            await handleDeleteRequest(param, req, res);
+            break;
+  
+          default:
+            sendErrorResponse(res, 404, "Route Not Found!");
         }
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    sendErrorResponse(res, 500, "Internal Server Error");
+      } catch (error) {
+        console.error("Error processing request:", error);
+        sendErrorResponse(res, 500, "Internal Server Error");
+      }
+    });
+  } else {
+    // Handle other routes or 404 Not Found
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
   }
-
-
-
-
-
-
-
-
-
-
 
   // Use body-parser for parsing JSON bodies 
   
@@ -150,6 +124,37 @@ async function handlePostRequest(req, res) {
     }
   } else {
     sendErrorResponse(res, 404, "Route Not Found!");
+  }
+}
+
+function serveStaticFile(res, url) {
+  const filePath = path.join(__dirname, 'portfolio', url);
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Internal Server Error');
+      return;
+    }
+
+    const contentType = getContentType(url);
+    res.writeHead(200, { 'Content-Type': contentType });
+    res.end(data);
+  });
+}
+
+function getContentType(url) {
+  if (url.endsWith('.html')) {
+    return 'text/html';
+  } else if (url.endsWith('.css')) {
+    return 'text/css';
+  } else if (url.endsWith('.jpg') || url.endsWith('.jpeg')) {
+    return 'image/jpeg';
+  } else if (url.endsWith('.png')) {
+    return 'image/png';
+  } else if (url.endsWith('.gif')) {
+    return 'image/gif';
+  } else {
+    return 'application/octet-stream';
   }
 }
 

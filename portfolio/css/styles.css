@@ -62,7 +62,7 @@ h3 {
 }
 
 .main {
-    background-image: url('images/image2.jpg');
+    background-image: url('../images/image2.jpg');
     background-size: cover;
     background-position: left;
     color: white;
